@@ -1,0 +1,56 @@
+Pract 2:-Develop SQL DDL statements which demonstrate the use of SQL objects such as Table, View, Index, Sequence, Synonym
+
+
+Create database ass2;
+Use ass2;
+
+
+create table Employee (Employee_Id int(10),
+    Employee_Name varchar(100),
+    Salary float(20),City varchar(30),  
+);
+ 
+Select * from Employee;
+
+
+insert into Employee values (101,''Harsh'',10000,''Pune'');
+insert into Employee values (102,''Amit'',70000,''Mumbai'');
+insert into Employee values (103,''Tanay'',90000,''Satara'');
+insert into Employee values (104,''Parth'',60000,''Nashik'');
+insert into Employee values (105,''Omkar'',50000,''Solapur'');
+
+Select * from Employee;
+
+create view v1 as
+select Employee_Id,Employee_NAME,City from Employee;
+select * from v1;
+
+Create index on Employee(Employee_Id);
+Show index from Employee;
+
+ALTER TABLE Employee
+DROP COLUMN Salary ;
+Select * from Employee;
+
+
+ALTER TABLE Employee
+ADD p_country varchar(20);
+Select * from Employee;
+  
+SET p_country=”INDIA” WHERE
+Employee_Id=102;
+Select * from Employee;
+
+SELECT MIN(Employee_Id) FROM Employee;
+Select * from Employee;
+
+SELECT MAX(Employee_Id) FROM Employee;
+Select * from Employee;
+
+SELECT Employee_Id,Employee_Name FROM Employee
+ ORDER BY Employee_Id DESC;
+
+
+
+
+

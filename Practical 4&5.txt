@@ -1,0 +1,51 @@
+PRACT 4&5
+Unnamed PL/SQLcode block: Use of Control structure and Exception handling is mandatory. Suggested Problem statement:
+
+
+
+mysql -u root -p
+create database Practical4;
+use Practical4;
+ create table Borrower(Roll_no int primary key , BName varchar(20) , Dateofissue date, NameofBook              varchar(30) , Status char(1));
+ insert into Borrower values(31 , "rohan" , '2023-8-01' , "DBMS" , 'I');
+ insert into Borrower values(08 , "Anuj" , '2023-7-23' , "java" , 'I');
+ insert into Borrower values(32 , "azhar" , '2023-8-26' , "Python" ,  'I');
+ insert into Borrower values(16 , "vivek" , '2023-8-25' , "Cpp" , 'I');
+ select * from Borrower;
+
+create table Fine(Roll_no int , CurrDate date , Amt int);
+select * from Fine;
+
+ DELIMITER $
+CREATE PROCEDURE calfine(Rollno INT, Bname1 VARCHAR(30))
+BEGIN
+    DECLARE Idate DATE;
+    DECLARE fine INT;
+    DECLARE day INT;
+
+    SELECT Dateofissue INTO Idate FROM Borrower WHERE Roll_no = Rollno AND Bname = Bname1;
+
+    SET day = DATEDIFF(CURDATE(), Idate);
+
+    IF (day >= 15 AND day <= 30) THEN
+        SET fine = day * 5;
+    ELSEIF (day > 30) THEN
+        SET fine = day * 50;
+    END IF;
+
+    UPDATE Borrower SET Status = 'R' WHERE Roll_no = Rollno AND Bname = Bname1;
+
+    IF (fine IS NOT NULL) THEN
+        INSERT INTO Fine VALUES (Rollno, CURDATE(), fine);
+    END IF;
+END $
+DELIMITER ;
+
+CALL calfine(8, "Anuj");
+SELECT * FROM Fine;
+SELECT * FROM Borrower;
+
+
+
+
+

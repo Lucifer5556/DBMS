@@ -1,0 +1,149 @@
+Pract7
+Cursors
+
+ create database class;
+ use class;
+ create table NewRollno(id int,name varchar(50));
+ create table OldRollno(id int, name varchar(50));
+ insert into NewRollno values(1,'Raj'),(2,'Dev'),(3,'Riya'),(4,'Siya');
+ insert into OldRollno values(3,'Riya'),(5,'Sonu'),(6,'Krish'),(2,'Monu');
+ select * from NewRollno;
+ select * from OldRollno;
+
+ Delimiter //
+    create procedure CombinbeRollno()
+     begin
+     declare done int default 0;
+     declare n_id int;
+     declare n_name varchar(50);
+     declare o_id int;
+     declare o_name varchar(50);
+     declare n_cursor cursor for select id,name from NewRollno;
+     declare o_cursor cursor for select id,name from OldRollno;
+     declare continue handler for not found set done=1;
+     open n_cursor;
+     open o_cursor;
+     n_loop:loop
+     fetch n_cursor into n_id,n_name;
+     if done=1 then
+     leave n_loop;
+     end if;
+     set @count=0;
+     select count(*) into @count from OldRollno where id=n_id;
+    if @count=0 then
+    insert into OldRollno(id,name)values(n_id,n_name);
+    end if;
+    end loop;
+    close n_cursor;
+    close o_cursor;
+    end //
+
+ delimiter &
+ call CombinbeRollno();
+   select * from OldRollno;
+end &
+
+
+
+
+
+
+
+
+
+
+
+ create database class;
+ use class;
+ create table NewRollno(id int,name varchar(50));
+ create table OldRollno(id int, name varchar(50));
+ insert into NewRollno values(1,'Raj'),(2,'Dev'),(3,'Riya'),(4,'Siya');
+ insert into OldRollno values(3,'Riya'),(5,'Sonu'),(6,'Krish'),(2,'Monu');
+ select * from NewRollno;
+ select * from OldRollno;
+
+ Delimiter //
+    create procedure CombinbeRollno()
+     begin
+     declare done int default 0;
+     declare n_id int;
+     declare n_name varchar(50);
+     declare o_id int;
+     declare o_name varchar(50);
+     declare n_cursor cursor for select id,name from NewRollno;
+     declare o_cursor cursor for select id,name from OldRollno;
+     declare continue handler for not found set done=1;
+     open n_cursor;
+     open o_cursor;
+     n_loop:loop
+     fetch n_cursor into n_id,n_name;
+     if done=1 then
+     leave n_loop;
+     end if;
+     set @count=0;
+     select count(*) into @count from OldRollno where id=n_id;
+    if @count=0 then
+    insert into OldRollno(id,name)values(n_id,n_name);
+    end if;
+    end loop;
+    close n_cursor;
+    close o_cursor;
+    end //
+
+ delimiter &
+ call CombinbeRollno();
+   select * from OldRollno;
+end &
+
+
+
+
+
+
+
+
+
+
+
+create database cursor1;
+use cursor1;
+create table o_rollcall(roll int,name varchar(10));
+create table n_rollcall(roll int,name varchar(10));
+insert into o_rollcall values (1,'a'),(3,'c'),(4,'d'),(5,'e');
+insert into n_rollcall values (2,'b'),(1,'a'),(5,'e');
+select * from o_rollcall;
+select * from n_rollcall;
+Delimiter &
+create procedure roll_list()
+begin 
+declare oldrollno int;
+declare oldname varchar(10); 
+declare newrollno int;
+declare newname varchar(10);
+declare done int default false;
+declare c1 cursor for select roll,name from o_rollcall;
+declare c2 cursor for select roll,name from n_rollcall;
+declare continue handler for not found set done=true; 
+open c1;
+loop1:loop
+fetch c1 into oldrollno,oldname;
+if done then 
+leave loop1;
+end if; 
+open c2;
+loop2:loop 
+fetch c2 into newrollno,newname; 
+if done then 
+insert into n_rollcall values(oldrollno,oldname);
+set done=false;
+close c2;
+leave loop2; 
+end if; 
+end loop;
+end loop; 
+close c1;
+end &
+delimiter ;
+select * from n_rollcall;
+
+

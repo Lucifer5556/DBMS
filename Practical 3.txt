@@ -1,0 +1,75 @@
+JOIN AND ITS TYPES 
+
+
+Create database ass3;
+Use ass3;
+
+
+create table Customer (Customer_Id int(10),
+    Customer_Name varchar(100),
+   Customer_contact int(20),City varchar(30),  
+);
+ 
+Select * from Customer;
+
+
+insert into Customer values (101,''Harsh'',770920487,''Pune'');
+insert into Customer values (102,''Amit'',7086940256,''Mumbai'');
+insert into Customer values (103,''Tanay'',9090908750,''Satara'');
+insert into Customer values (104,''Parth'',6598321420,''Nashik'');
+insert into Customer values (105,''Omkar'',7898456512,''Solapur'');
+
+Select * from Customer;
+
+Create table Orders(order_id int(10),order_name varchar(10),
+order_prize int(10));
+
+Select * from Orders;
+
+insert into Orders values (101,''chiken'',200);
+insert into Orders values (102,''pavbhaji'',150);
+insert into Orders values (103,''missal'',130);
+insert into Orders values (104,''dosa'',80);
+insert into Orders values (105,''poolav'',100);
+
+Select * from Orders;
+
+
+Select customer.Customer_Id , Customer_contact ,
+Orders.order_name
+From customer
+inner join Orders
+on Customer_Id=order_id
+
+Or
+
+SELECT *
+ from 
+Customer
+ INNER JOIN Orders 
+on customer.Customer_Id= orders.order_id
+
+
+SELECT *
+ from 
+Customer
+ LEFT JOIN Orders 
+on customer.Customer_Id= orders.order_id
+
+
+SELECT *
+ from 
+Customer
+RIGHT JOIN Orders 
+on customer.Customer_Id= orders.order_id
+
+
+Dml query
+
+UPDATE Customers
+SET Customer_Name  = “manish”
+WHERE Customer_id = 103;
+
+Delete from Customer
+Where Customer_Name=Harsh;
+
