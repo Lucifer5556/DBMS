@@ -1,0 +1,26 @@
+Practical 10
+
+show dbs;
+
+use Practical10;
+
+show collection
+
+db.createCollection("employee")
+
+db.employee.insert({:},{:},...)
+
+db.employee.find({},{_id:0})
+
+db.employee.find("Roll")
+
+db.employee.find({Roll:{$in:[1,2]}})
+
+db.employee.find($or{Roll:{$gte:3}},{Name:"LMN"})
+
+db.TE.update({Roll:2}, {$set: {Name:"Wagholi"}})
+
+db.TE.remove({ROll:2})
+
+db.TE.drop()
+
